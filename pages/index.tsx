@@ -2,7 +2,7 @@ import { isTargetLikeServerless } from 'next/dist/next-server/server/config';
 import { useState } from 'react';
 import styles from './index.module.scss';
 import jwt from 'jsonwebtoken';
-
+import Link from "next/link";
 export default function Home(){
   const [username ,setUsername] = useState<string>('wasiq');
   const [password ,setPassword] = useState<string>('wasiq');
@@ -23,11 +23,14 @@ export default function Home(){
       const json = jwt.decode(res.token) as { [key: string]: string }
       console.log(json);
       console.log(`Welcome ${json.username} and you are ${json.admin ? 'an admin ' : 'not admin'}`);
+      setMessage(`Welcome ${json.username} and you are ${json.admin ? 'an admin ' : 'not admin'}`)
              }
     else console.log('Not Found');
   }
   return (
+    <>
       <form>
+        <h1>{message}</h1>
           <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
           <br />
           <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -35,5 +38,9 @@ export default function Home(){
           {/* <input onSubmit={submitForm} /> */}
           <button onClick={submitForm}>Submit</button>
       </form>
+      <Link href="/wasiq/activities">
+        <a>PAge1</a>
+      </Link>
+      </>
   )
 }

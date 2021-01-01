@@ -13,7 +13,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     res.json({
         token: jwt.sign({
             username: username,
-            password: username === 'admin' && password === 'admin' 
+            admin: username === 'admin' && password === 'admin' 
         }, KEY)
     })
 }
